@@ -52,7 +52,11 @@ exports.up = function (knex) {
 
             tbl.string("ancestry", 256).notNullable()
             tbl.string("name", 256).notNullable()
-            tbl.string("level", 256).notNullable()
+
+            tbl.integer("level")
+                .unsigned()
+                .notNullable()
+
             tbl.string("class", 256).notNullable()
             tbl.string("description", 256).notNullable()
 
@@ -68,7 +72,7 @@ exports.up = function (knex) {
                 .onDelete("CASCADE");
 
             tbl.string("name", 256).notNullable().unique().index()
-            tbl.string("desc", 256)
+            tbl.string("description", 256)
         })
 
         .createTable("religions", (tbl) => {
@@ -81,6 +85,7 @@ exports.up = function (knex) {
                 .onUpdate("CASCADE")
                 .onDelete("CASCADE");
 
+            tbl.string("name", 256).notNullable()
             tbl.string("gods", 256).notNullable()
             tbl.string("doctrines", 256).notNullable()
             tbl.string("description", 256).notNullable()
@@ -106,7 +111,7 @@ exports.up = function (knex) {
 exports.down = function (knex) {
     return knex.schema.dropTableIfExists("history")
         .dropTableIfExists("religions")
-        .dropTableIfExists("worlds")
+        .dropTableIfExists("world")
         .dropTableIfExists("characters")
         .dropTableIfExists("countries")
         .dropTableIfExists("campaigns")

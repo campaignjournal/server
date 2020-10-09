@@ -1,0 +1,8 @@
+exports.seed = function (knex) {
+    return knex("campaigns").insert([
+      {
+          name:"Journey through Madderay",
+          desc:"Follow Edawal as he punches every single monster!"
+      },
+    ])
+  }
