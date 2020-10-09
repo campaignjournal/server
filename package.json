@@ -4,7 +4,9 @@
   "description": "Powers the most fantastical app on the web.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
