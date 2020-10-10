@@ -1,0 +1,17 @@
+const router = require("express").Router()
+const bcryptjs = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+
+const Religions = require("./religionsModel")
+
+router.get("/:id/worlds/:worldid/religions", (req, res) => {
+    const worldId = req.params.worldid
+
+    Religions.findReligionsByWorld(worldId)
+    .then((religions) => {
+        res.status(200).json({ data: religions })
+    })
+    .catch((err) => res.send(err))
+})
+
+module.exports = router
