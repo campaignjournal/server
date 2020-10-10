@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
     const id = req.params.id
-    
+
     Campaigns.findById(id)
         .then((campaigns) => {
             res.status(200).json({ data: campaigns })
@@ -101,7 +101,19 @@ router.post("/:id/worlds/", (req, res) => {
 
     Campaigns.createWorld(id, newWorld)
         .then(world => {
-            res.status(201).json({data: world})
+            res.status(201).json({ data: world })
+        })
+        .catch(err => res.send(err))
+})
+
+router.put("/:id/worlds/:worldid", (req, res) => {
+    const id = req.params.id
+    const worldId = req.params.worldid
+    const reshapedWorld = req.body
+
+    Campaigns.updateWorld(worldId, reshapedWorld)
+        .then(world => {
+            res.status(201).json({ data: world })
         })
         .catch(err => res.send(err))
 })

@@ -54,14 +54,14 @@ function findByWorld(worldId) {
         .first()
 }
 
-function updateWorld(worldId, changes) {
-    return db('world')
-        .where({ id })
-        .update(changes)
-}
-
 function createWorld(id, newWorld) {
     return db('world')
         .insert(newWorld)
         .where({ campaign_id: id})
+}
+
+function updateWorld(worldId, changes) {
+    return db('world')
+        .where({ id: worldId })
+        .update(changes)
 }
