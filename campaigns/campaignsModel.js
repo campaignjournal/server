@@ -6,7 +6,13 @@ module.exports = {
     create,
     remove,
     update,
+    findByCampaign,
+    findByWorld,
+    updateWorld,
+    createWorld,
 }
+
+// CAMPAIGN GENERAL ROUTING HELPERS
 
 function find() {
     return db("campaigns")
@@ -33,4 +39,29 @@ function update(id, changes) {
     return db('campaign')
         .where('id', id)
         .update(changes)
+}
+
+// WORLD SUB-ROUTING HELPERS
+
+function findByCampaign(campId) {
+    return db('world')
+        .where({ campaign_id: campId })
+}
+
+function findByWorld(worldId) {
+    return db('world')
+        .where({ id: worldId })
+        .first()
+}
+
+function updateWorld(worldId, changes) {
+    return db('world')
+        .where({ id })
+        .update(changes)
+}
+
+function createWorld(id, newWorld) {
+    return db('world')
+        .insert(newWorld)
+        .where({ campaign_id: id})
 }
