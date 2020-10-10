@@ -10,6 +10,7 @@ module.exports = {
     findByWorld,
     updateWorld,
     createWorld,
+    destroyWorld,
 }
 
 // CAMPAIGN GENERAL ROUTING HELPERS
@@ -64,4 +65,10 @@ function updateWorld(worldId, changes) {
     return db('world')
         .where({ id: worldId })
         .update(changes)
+}
+
+function destroyWorld(worldId) {
+    return db('world')
+        .where({ id: worldId })
+        .del()
 }

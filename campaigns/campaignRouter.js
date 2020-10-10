@@ -113,9 +113,20 @@ router.put("/:id/worlds/:worldid", (req, res) => {
 
     Campaigns.updateWorld(worldId, reshapedWorld)
         .then(world => {
-            res.status(201).json({ data: world })
+            res.status(200).json({ data: world })
         })
         .catch(err => res.send(err))
+})
+
+router.delete("/:id/worlds/:worldid", (req, res) => {
+    const id = req.params.id
+    const worldId = req.params.worldid
+
+    Campaigns.destroyWorld(worldId)
+        .then((world) => {
+            res.status(200).json({ message: "Successfully deleted." })
+        })
+        .catch((err) => res.send(err))
 })
 
 module.exports = router
