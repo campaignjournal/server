@@ -1,21 +1,26 @@
 const db = require('../database/dbconfig')
 
 module.exports = {
-    find,
+    findCampaigns,
     findById,
     create,
     remove,
     update,
-    findByCampaign,
+    findWorldsByCampaign,
     findByWorld,
     updateWorld,
     createWorld,
     destroyWorld,
+    findCharactersByCampaign,
+    findByCharacterId,
+    createCharacter,
+    updateCharacter,
+    destroyCharacter,
 }
 
 // CAMPAIGN GENERAL ROUTING HELPERS
 
-function find() {
+function findCampaigns() {
     return db("campaigns")
 }
 
@@ -44,7 +49,7 @@ function update(id, changes) {
 
 // WORLD SUB-ROUTING HELPERS
 
-function findByCampaign(campId) {
+function findWorldsByCampaign(campId) {
     return db('world')
         .where({ campaign_id: campId })
 }
@@ -72,3 +77,36 @@ function destroyWorld(worldId) {
         .where({ id: worldId })
         .del()
 }
+
+// CHARACTER SUB-ROUTING HELPERS
+
+function findCharactersByCampaign(campId) {
+    return db('characters')
+        .where({ campaign_id: campId })
+}
+
+function findByCharacterId(charactersId) {
+    return db('characters')
+        .where({ id: charactersId })
+        .first()
+}
+
+function createCharacter(id, newcharacters) {
+    return db('characters')
+        .insert(newcharacters)
+        .where({ campaign_id: id})
+}
+
+function updateCharacter(charactersId, changes) {
+    return db('characters')
+        .where({ id: charactersId })
+        .update(changes)
+}
+
+function destroyCharacter(charactersId) {
+    return db('characters')
+        .where({ id: charactersId })
+        .del()
+}
+
+// COUNTRY SUB-ROUTING HELPERS

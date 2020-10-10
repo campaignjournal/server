@@ -8,7 +8,7 @@ const Campaigns = require('./campaignsModel')
 
 router.get("/", (req, res) => {
 
-    Campaigns.find()
+    Campaigns.findCampaigns()
         .then((campaigns) => {
             res.status(200).json({ data: campaigns })
         })
@@ -77,7 +77,7 @@ router.delete("/:id", (req, res) => {
 router.get("/:id/worlds", (req, res) => {
     const id = req.params.id
 
-    Campaigns.findByCampaign(id)
+    Campaigns.findWorldsByCampaign(id)
         .then((worlds) => {
             res.status(200).json({ data: worlds })
         })
@@ -124,6 +124,63 @@ router.delete("/:id/worlds/:worldid", (req, res) => {
 
     Campaigns.destroyWorld(worldId)
         .then((world) => {
+            res.status(200).json({ message: "Successfully deleted." })
+        })
+        .catch((err) => res.send(err))
+})
+
+// CHARACTER SUB-ROUTING
+
+router.get("/:id/characters", (req, res) => {
+    const id = req.params.id
+
+    Campaigns.findCharactersByCampaign(id)
+        .then((characters) => {
+            res.status(200).json({ data: characters })
+        })
+        .catch((err) => res.send(err))
+})
+
+router.get("/:id/characters/:characterid", (req, res) => {
+    const id = req.params.id
+    const characterId = req.params.characterid
+
+    Campaigns.findByCharacterId(characterId)
+        .then((character) => {
+            res.status(200).json({ data: character })
+        })
+        .catch((err) => res.send(err))
+})
+
+router.post("/:id/characters/", (req, res) => {
+    const id = req.params.id
+    const newCharacter = req.body
+
+    Campaigns.createCharacter(id, newCharacter)
+        .then(character => {
+            res.status(201).json({ data: character })
+        })
+        .catch(err => res.send(err))
+})
+
+router.put("/:id/characters/:characterid", (req, res) => {
+    const id = req.params.id
+    const characterId = req.params.characterid
+    const reshapedCharacter = req.body
+
+    Campaigns.updateCharacter(characterId, reshapedCharacter)
+        .then(character => {
+            res.status(200).json({ data: character })
+        })
+        .catch(err => res.send(err))
+})
+
+router.delete("/:id/characters/:characterid", (req, res) => {
+    const id = req.params.id
+    const characterId = req.params.characterid
+
+    Campaigns.destroyCharacter(characterId)
+        .then((character) => {
             res.status(200).json({ message: "Successfully deleted." })
         })
         .catch((err) => res.send(err))
