@@ -186,4 +186,61 @@ router.delete("/:id/characters/:characterid", (req, res) => {
         .catch((err) => res.send(err))
 })
 
+// COUNTRY SUB-ROUTING
+
+router.get("/:id/countries", (req, res) => {
+    const id = req.params.id
+
+    Campaigns.findCountriesByCampaign(id)
+        .then((countries) => {
+            res.status(200).json({ data: countries })
+        })
+        .catch((err) => res.send(err))
+})
+
+router.get("/:id/countries/:countryid", (req, res) => {
+    const id = req.params.id
+    const countryId = req.params.countryid
+
+    Campaigns.findByCountryId(countryId)
+        .then((country) => {
+            res.status(200).json({ data: country })
+        })
+        .catch((err) => res.send(err))
+})
+
+router.post("/:id/countries/", (req, res) => {
+    const id = req.params.id
+    const newCountry = req.body
+
+    Campaigns.createCountry(id, newCountry)
+        .then(character => {
+            res.status(201).json({ data: country })
+        })
+        .catch(err => res.send(err))
+})
+
+router.put("/:id/countries/:countryid", (req, res) => {
+    const id = req.params.id
+    const countryId = req.params.countryid
+    const reshapedCountry = req.body
+
+    Campaigns.updateCountry(countryId, reshapedCountry)
+        .then(country => {
+            res.status(200).json({ data: country })
+        })
+        .catch(err => res.send(err))
+})
+
+router.delete("/:id/countries/:countryid", (req, res) => {
+    const id = req.params.id
+    const countryId = req.params.countryid
+
+    Campaigns.destroyCountry(countryId)
+        .then((country) => {
+            res.status(200).json({ message: "Successfully deleted." })
+        })
+        .catch((err) => res.send(err))
+})
+
 module.exports = router
