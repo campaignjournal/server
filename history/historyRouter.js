@@ -14,7 +14,7 @@ router.get("/:id/worlds/:worldid/history", (req, res) => {
                 })
             } else {
                 res.status(404).json({
-                    message: "No historical events have been created, yet!"
+                    errorMessage: "No historical events have been created, yet!"
                 })
             }
         })
@@ -36,7 +36,7 @@ router.get("/:id/worlds/:worldid/history/:eventid", (req, res) => {
                 })
             } else {
                 res.status(404).json({
-                    message: "Record does not exist."
+                    errorMessage: "Record does not exist."
                 })
             }
         })
@@ -106,7 +106,7 @@ router.delete("/:id/worlds/:worldid/history/:eventid", (req, res) => {
                 })
             } else {
                 res.status(404).json({
-                    message: "Record does not exist."
+                    errorMessage: "Record does not exist."
                 })
             }
         })
