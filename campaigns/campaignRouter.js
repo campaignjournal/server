@@ -9,9 +9,13 @@ router.get("/", (req, res) => {
 
     Campaigns.findCampaigns()
         .then((campaigns) => {
-            res.status(200).json({ data: campaigns })
+            res.status(200).json({
+                data: campaigns
+            })
         })
-        .catch((err) => res.send(err))
+        .catch((err) => {
+            res.status(500).json({ errorMessage: "Internal server error." })
+        })
 })
 
 router.get("/:id", (req, res) => {
@@ -19,9 +23,19 @@ router.get("/:id", (req, res) => {
 
     Campaigns.findById(id)
         .then((campaigns) => {
-            res.status(200).json({ data: campaigns })
+            if(campaigns) {
+                res.status(200).json({
+                    data: campaigns
+                })
+            } else {
+                res.status(404).json({
+                    errorMessage: "Record does not exist."
+                })
+            }
         })
-        .catch((err) => res.send(err))
+        .catch((err) => {
+            res.status(500).json({ errorMessage: "Internal server error." })
+        })
 })
 
 router.post("/", (req, res) => {
@@ -30,7 +44,7 @@ router.post("/", (req, res) => {
 
     if (legitCamp) {
         Campaigns.create(newCampaign)
-            .then(thenRes => {
+            .then(campaign => {
                 res.status(201).json(newCampaign)
             })
             .catch(err => {
@@ -48,34 +62,48 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
     const editedCampaign = req.body
     const id = req.params.id
+    const legitCamp = campValidator(newCampaign)
 
-    Campaigns.update(id, editedCampaign)
-        .then(thenRes => {
-            if (thenRes) {
-                res.status(204).json(editedCampaign)
+    if (legitCamp) {
+        Campaigns.update(id, editedCampaign)
+        .then(campaigns => {
+            if (campaigns) {
+                res.status(200).json(editedCampaign)
             } else {
-                res.status(404).json({ errorMessage: "Record does not exist." })
+                res.status(404).json({
+                    errorMessage: "Record does not exist."
+                })
             }
         })
         .catch(err => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
-
+    } else {
+        res.status(400).json({
+            message: "Campaigns must have a user, name, and description.",
+        })
+    }
 })
 
 router.delete("/:id", (req, res) => {
     const id = req.params.id
 
     Campaigns.remove(id)
-        .then(thenRes => {
-            if (thenRes) {
-                res.status(200).json(thenRes)
+        .then(campaigns => {
+            if (campaigns) {
+                res.status(200).json(campaigns)
             } else {
-                res.status(404).json({ errorMessage: "Record does not exist." })
+                res.status(404).json({
+                    errorMessage: "Record does not exist."
+                })
             }
         })
         .catch(err => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
 })
 
