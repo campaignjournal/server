@@ -1,6 +1,7 @@
 const router = require("express").Router()
 
 const Campaigns = require('./campaignsModel')
+const campValidator = require('../middleware/campValidator')
 
 //CAMPAIGN GENERAL ROUTING
 
@@ -25,15 +26,23 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
     const newCampaign = req.body
+    const legitCamp = campValidator(newCampaign)
 
-    Campaigns.create(newCampaign)
-        .then(thenRes => {
-            res.status(201).json(newCampaign)
+    if (legitCamp) {
+        Campaigns.create(newCampaign)
+            .then(thenRes => {
+                res.status(201).json(newCampaign)
+            })
+            .catch(err => {
+                res.status(500).json({
+                    errorMessage: "Internal server error."
+                })
+            })
+    } else {
+        res.status(400).json({
+            message: "Campaigns must have a user, name, and description.",
         })
-        .catch(err => {
-            res.status(400).json({ errorMessage: "Incorrectly shaped data." })
-        })
-
+    }
 })
 
 router.put("/:id", (req, res) => {
