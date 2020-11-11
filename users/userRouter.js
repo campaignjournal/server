@@ -3,7 +3,10 @@ const bcryptjs = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 const Users = require("./UserModel")
+
+// middleware 
 const userValidator = require("../middleware/userValidator")
+const restricted = require("../middleware/restricted")
 const envSecret = require("../config/secrets")
 
 const makeJWT = (user) => {
@@ -11,17 +14,17 @@ const makeJWT = (user) => {
         subject: user.id,
         username: user.username,
     }
-    
-    const secret = envSecret
+
+    const secret = envSecret.jwtSecret
 
     const options = {
         expiresIn: "8h",
-      }
-    
-      return jwt.sign(payload, secret, options)
+    }
+
+    return jwt.sign(payload, secret, options)
 }
 
-router.get("/", (req, res) => {
+router.get("/", restricted, (req, res) => {
     Users.find()
         .then((users) => {
             if (users) {
@@ -66,11 +69,17 @@ router.post("/register", (req, res) => {
     const newUser = req.body
     const legitUser = userValidator(newUser)
 
+    const rounds = process.env.HASH_RDS || 6
+    const hash = bcryptjs.hashSync(newUser.password, Number(rounds))
+
+    newUser.password = hash
+
     if (legitUser) {
         Users.create(newUser)
-            .then(thenRes => {
+            .then(user => {
+                const token = makeJWT(user)
                 res.status(201).json({
-                    data: newUser
+                    data: user, token
                 })
             })
             .catch((err) => {
@@ -86,24 +95,30 @@ router.post("/register", (req, res) => {
 })
 
 router.post("/login", (req, res) => {
-    const newUser = req.body
-    const legitUser = userValidator(newUser)
+    const { username, password } = req.body
 
-    if (legitUser) {
-        Users.create(newUser)
-            .then(thenRes => {
-                res.status(201).json({
-                    data: newUser
-                })
+    if (username && password) {
+        Users.findByUsername(username)
+            .then((user) => {
+                if (user && bcryptjs.compareSync(password, user.password)) {
+                    const token = makeJWT(user)
+                    res.status(200).json({
+                        user, token
+                    })
+                } else {
+                    res.status(401).json({
+                        message: "Invalid credentials", 
+                    })
+                }
             })
             .catch((err) => {
                 res.status(500).json({
-                    errorMessage: "Internal server error."
+                    errorMessage: "Internal server error.", password
                 })
             })
     } else {
         res.status(400).json({
-            errorMessage: "Users have the following required attributes: username, password, and email. Username and password MUST be unique."
+            message: "please provide username and the password",
         })
     }
 })

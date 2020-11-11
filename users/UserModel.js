@@ -1,8 +1,9 @@
-const db = require('../database/dbconfig')
+const db = require("../database/dbconfig")
 
 module.exports = {
     find,
     findById,
+    findByUsername,
     create,
     remove,
     update,
@@ -18,19 +19,25 @@ function findById(id) {
         .first()
 }
 
+function findByUsername(username) {
+    return db("users")
+        .where({ username: username })
+        .first()
+}
+
 function create(user) {
-    return db('users')
+    return db("users")
         .insert(user)
 }
 
 function remove(id) {
-    return db('users')
-        .where('id', id)
+    return db("users")
+        .where("id", id)
         .del()
 }
 
 function update(id, changes) {
-    return db('users')
-        .where('id', id)
+    return db("users")
+        .where("id", id)
         .update(changes)
 }
