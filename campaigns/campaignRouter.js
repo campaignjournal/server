@@ -9,9 +9,15 @@ router.get("/", (req, res) => {
 
     Campaigns.findCampaigns()
         .then((campaigns) => {
-            res.status(200).json({
-                data: campaigns
-            })
+            if (campaigns) {
+                res.status(200).json({
+                    data: campaigns
+                })
+            } else {
+                res.status(404).json({
+                    message: "No campaigns created, yet!"
+                })
+            }
         })
         .catch((err) => {
             res.status(500).json({ errorMessage: "Internal server error." })
@@ -23,7 +29,7 @@ router.get("/:id", (req, res) => {
 
     Campaigns.findById(id)
         .then((campaigns) => {
-            if(campaigns) {
+            if (campaigns) {
                 res.status(200).json({
                     data: campaigns
                 })
@@ -66,20 +72,20 @@ router.put("/:id", (req, res) => {
 
     if (legitCamp) {
         Campaigns.update(id, editedCampaign)
-        .then(campaigns => {
-            if (campaigns) {
-                res.status(200).json(editedCampaign)
-            } else {
-                res.status(404).json({
-                    errorMessage: "Record does not exist."
-                })
-            }
-        })
-        .catch(err => {
-            res.status(500).json({
-                errorMessage: "Internal server error."
+            .then(campaigns => {
+                if (campaigns) {
+                    res.status(200).json(editedCampaign)
+                } else {
+                    res.status(404).json({
+                        errorMessage: "Record does not exist."
+                    })
+                }
             })
-        })
+            .catch(err => {
+                res.status(500).json({
+                    errorMessage: "Internal server error."
+                })
+            })
     } else {
         res.status(400).json({
             message: "Campaigns must have a user, name, and description.",
@@ -93,7 +99,7 @@ router.delete("/:id", (req, res) => {
     Campaigns.remove(id)
         .then(campaigns => {
             if (campaigns) {
-                res.status(200).json(campaigns)
+                res.status(200).json({ message: "Successfully deleted." })
             } else {
                 res.status(404).json({
                     errorMessage: "Record does not exist."

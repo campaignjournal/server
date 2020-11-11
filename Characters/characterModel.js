@@ -21,9 +21,9 @@ function findByCharacterId(charactersId) {
         .first()
 }
 
-function createCharacter(id, newCharacters) {
+function createCharacter(id, newCharacter) {
     return db('characters')
-        .insert(newCharacters)
+        .insert(newCharacter)
         .where({ campaign_id: id })
 }
 
