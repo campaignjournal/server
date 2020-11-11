@@ -60,7 +60,7 @@ router.post("/", (req, res) => {
             })
     } else {
         res.status(400).json({
-            errorMessage: "Campaigns must have a user, name, and description.",
+            errorMessage: "Campaigns require the following attributes: user_id, name, and description.",
         })
     }
 })
@@ -88,7 +88,7 @@ router.put("/:id", (req, res) => {
             })
     } else {
         res.status(400).json({
-            errorMessage: "Campaigns must have a user, name, and description.",
+            errorMessage: "Campaigns require the following attributes: user_id, name, and description.",
         })
     }
 })

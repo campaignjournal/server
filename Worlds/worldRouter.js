@@ -55,14 +55,14 @@ router.post("/:id/worlds/", (req, res) => {
 
     if (legitWorld) {
         Worlds.createWorld(id, newWorld)
-        .then(world => {
-            res.status(201).json({ data: world })
-        })
-        .catch((err) => {
-            res.status(500).json({
-                errorMessage: "Internal server error."
+            .then(world => {
+                res.status(201).json({ data: world })
             })
-        })
+            .catch((err) => {
+                res.status(500).json({
+                    errorMessage: "Internal server error."
+                })
+            })
     } else {
         res.status(400).json({
             errorMessage: "Worlds must have a campaign_id, description, and name."
@@ -77,14 +77,14 @@ router.put("/:id/worlds/:worldid", (req, res) => {
 
     if (legitWorld) {
         Worlds.updateWorld(worldId, changes)
-        .then(world => {
-            res.status(200).json({ data: world })
-        })
-        .catch((err) => {
-            res.status(500).json({
-                errorMessage: "Internal server error."
+            .then(world => {
+                res.status(200).json({ data: world })
             })
-        })
+            .catch((err) => {
+                res.status(500).json({
+                    errorMessage: "Internal server error."
+                })
+            })
     } else {
         res.status(400).json({
             errorMessage: "Worlds must have a campaign_id, description, and name."
@@ -98,7 +98,7 @@ router.delete("/:id/worlds/:worldid", (req, res) => {
     Worlds.destroyWorld(worldId)
         .then((world) => {
             if (world) {
-            res.status(200).json({ message: "Successfully deleted." })
+                res.status(200).json({ message: "Successfully deleted." })
             } else {
                 res.status(404).json({
                     message: "Record does not exist."
