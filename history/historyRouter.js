@@ -33,4 +33,15 @@ router.post("/:id/worlds/:worldid/history", (req, res) => {
     .catch((err) => res.send (err))
 })
 
+router.put("/:id/worlds/:worldid/history/:eventid", (req, res) => {
+    const eventId = req.params.eventid
+    const changes = req.body
+
+    History.updateEvent(eventId, changes)
+    .then((history) => {
+        res.status(200).json({ data: history })
+    })
+    .catch((err) => res.send (err))
+})
+
 module.exports = router
