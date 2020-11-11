@@ -1,20 +1,21 @@
 const router = require("express").Router()
-const bcryptjs = require("bcryptjs")
-const jwt = require("jsonwebtoken")
 
-const Users = require("./UserModel")
-const userValidator = require("../middleware/userValidator")
+const Campaigns = require('./campaignsModel')
+const campValidator = require('../middleware/campValidator')
+
+//CAMPAIGN GENERAL ROUTING
 
 router.get("/", (req, res) => {
-    Users.find()
-        .then((users) => {
-            if (users) {
+
+    Campaigns.findCampaigns()
+        .then((campaigns) => {
+            if (campaigns) {
                 res.status(200).json({
-                    data: users
+                    data: campaigns
                 })
             } else {
                 res.status(404).json({
-                    message: "No users have joined, yet!"
+                    message: "No campaigns created, yet!"
                 })
             }
         })
@@ -27,15 +28,16 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
     const id = req.params.id
-    Users.findById(id)
-        .then((user) => {
-            if (user) {
+
+    Campaigns.findById(id)
+        .then((campaigns) => {
+            if (campaigns) {
                 res.status(200).json({
-                    data: user
+                    data: campaigns
                 })
             } else {
                 res.status(404).json({
-                    message: "Record does not exist."
+                    errorMessage: "Record does not exist."
                 })
             }
         })
@@ -47,52 +49,50 @@ router.get("/:id", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-    const newUser = req.body
-    const legitUser = userValidator(newUser)
+    const newCampaign = req.body
+    const legitCamp = campValidator(newCampaign)
 
-    if (legitUser) {
-        Users.create(newUser)
-            .then(thenRes => {
-                res.status(201).json({
-                    data: newUser
-                })
+    if (legitCamp) {
+        Campaigns.create(newCampaign)
+            .then(campaign => {
+                res.status(201).json(newCampaign)
             })
-            .catch((err) => {
+            .catch(err => {
                 res.status(500).json({
                     errorMessage: "Internal server error."
                 })
             })
     } else {
         res.status(400).json({
-            errorMessage: "Users have the following required attributes: username, password, and email. Username and password MUST be unique."
+            errorMessage: "Campaigns require the following attributes: user_id, name, and description.",
         })
     }
 })
 
 router.put("/:id", (req, res) => {
-    const editedUser = req.body
+    const editedCampaign = req.body
     const id = req.params.id
-    const legitUser = userValidator(editedUser)
+    const legitCamp = campValidator(newCampaign)
 
-    if (legitUser) {
-        Users.update(id, editedUser)
-            .then(thenRes => {
-                if (thenRes) {
-                    res.status(200).json(editedUser)
+    if (legitCamp) {
+        Campaigns.update(id, editedCampaign)
+            .then(campaign => {
+                if (campaign) {
+                    res.status(200).json(editedCampaign)
                 } else {
                     res.status(404).json({
                         errorMessage: "Record does not exist."
                     })
                 }
             })
-            .catch((err) => {
+            .catch(err => {
                 res.status(500).json({
                     errorMessage: "Internal server error."
                 })
             })
     } else {
         res.status(400).json({
-            errorMessage: "Users have the following required attributes: username, password, and email. Username and password MUST be unique."
+            errorMessage: "Campaigns require the following attributes: user_id, name, and description.",
         })
     }
 })
@@ -100,11 +100,11 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
     const id = req.params.id
 
-    Users.remove(id)
-        .then(thenRes => {
-            if (thenRes) {
+    Campaigns.remove(id)
+        .then(campaigns => {
+            if (campaigns) {
                 res.status(200).json({
-                    message: "User successfully deleted."
+                    message: "Successfully deleted."
                 })
             } else {
                 res.status(404).json({
@@ -112,7 +112,7 @@ router.delete("/:id", (req, res) => {
                 })
             }
         })
-        .catch((err) => {
+        .catch(err => {
             res.status(500).json({
                 errorMessage: "Internal server error."
             })
