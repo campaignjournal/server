@@ -44,7 +44,7 @@ router.get("/", restricted, (req, res) => {
         })
 })
 
-router.get("/:id", (req, res) => {
+router.get("/:id", restricted, (req, res) => {
     const id = req.params.id
     Users.findById(id)
         .then((user) => {
@@ -123,7 +123,7 @@ router.post("/login", (req, res) => {
     }
 })
 
-router.put("/:id", (req, res) => {
+router.put("/:id", restricted, (req, res) => {
     const editedUser = req.body
     const id = req.params.id
     const legitUser = userValidator(editedUser)
@@ -151,7 +151,7 @@ router.put("/:id", (req, res) => {
     }
 })
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", restricted, (req, res) => {
     const id = req.params.id
 
     Users.remove(id)
