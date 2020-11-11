@@ -4,6 +4,22 @@ const jwt = require("jsonwebtoken")
 
 const Users = require("./UserModel")
 const userValidator = require("../middleware/userValidator")
+const envSecret = require("../config/secrets")
+
+const makeJWT = (user) => {
+    const payload = {
+        subject: user.id,
+        username: user.username,
+    }
+    
+    const secret = envSecret
+
+    const options = {
+        expiresIn: "8h",
+      }
+    
+      return jwt.sign(payload, secret, options)
+}
 
 router.get("/", (req, res) => {
     Users.find()
@@ -46,7 +62,30 @@ router.get("/:id", (req, res) => {
         })
 })
 
-router.post("/", (req, res) => {
+router.post("/register", (req, res) => {
+    const newUser = req.body
+    const legitUser = userValidator(newUser)
+
+    if (legitUser) {
+        Users.create(newUser)
+            .then(thenRes => {
+                res.status(201).json({
+                    data: newUser
+                })
+            })
+            .catch((err) => {
+                res.status(500).json({
+                    errorMessage: "Internal server error."
+                })
+            })
+    } else {
+        res.status(400).json({
+            errorMessage: "Users have the following required attributes: username, password, and email. Username and password MUST be unique."
+        })
+    }
+})
+
+router.post("/login", (req, res) => {
     const newUser = req.body
     const legitUser = userValidator(newUser)
 
