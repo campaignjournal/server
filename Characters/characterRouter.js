@@ -11,7 +11,9 @@ router.get("/:id/characters", (req, res) => {
     Characters.findCharactersByCampaign(id)
         .then((characters) => {
             if (characters) {
-                res.status(200).json({ data: characters })
+                res.status(200).json({
+                    data: characters
+                })
             } else {
                 res.status(404).json({
                     message: "No characters created, yet!"
@@ -19,7 +21,9 @@ router.get("/:id/characters", (req, res) => {
             }
         })
         .catch((err) => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
 })
 
@@ -29,7 +33,9 @@ router.get("/:id/characters/:characterid", (req, res) => {
     Characters.findByCharacterId(characterId)
         .then((character) => {
             if (character) {
-                res.status(200).json({ data: character })
+                res.status(200).json({
+                    data: character
+                })
             } else {
                 res.status(404).json({
                     errorMessage: "Record does not exist."
@@ -37,7 +43,9 @@ router.get("/:id/characters/:characterid", (req, res) => {
             }
         })
         .catch((err) => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
 })
 
@@ -49,10 +57,14 @@ router.post("/:id/characters", (req, res) => {
     if (legitChar) {
         Characters.createCharacter(id, newCharacter)
             .then(character => {
-                res.status(201).json({ data: newCharacter })
+                res.status(201).json({
+                    data: newCharacter
+                })
             })
             .catch((err) => {
-                res.status(500).json({ errorMessage: "Internal server error." })
+                res.status(500).json({
+                    errorMessage: "Internal server error."
+                })
             })
     } else {
         res.status(400).json({
@@ -69,10 +81,20 @@ router.put("/:id/characters/:characterid", (req, res) => {
     if (legitChar) {
         Characters.updateCharacter(characterId, changes)
             .then(character => {
-                res.status(200).json({ data: changes })
+                if (character) {
+                    res.status(200).json({
+                        data: changes
+                    })
+                } else {
+                    res.status(404).json({
+                        errorMessage: "Record does not exist."
+                    })
+                }
             })
             .catch((err) => {
-                res.status(500).json({ errorMessage: "Internal server error." })
+                res.status(500).json({
+                    errorMessage: "Internal server error."
+                })
             })
     } else {
         res.status(400).json({
@@ -87,7 +109,9 @@ router.delete("/:id/characters/:characterid", (req, res) => {
     Characters.destroyCharacter(characterId)
         .then((character) => {
             if (character) {
-                res.status(200).json({ message: "Successfully deleted." })
+                res.status(200).json({
+                    message: "Successfully deleted."
+                })
             } else {
                 res.status(404).json({
                     errorMessage: "Record does not exist."
@@ -95,7 +119,9 @@ router.delete("/:id/characters/:characterid", (req, res) => {
             }
         })
         .catch((err) => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
 })
 

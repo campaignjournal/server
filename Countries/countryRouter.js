@@ -81,9 +81,15 @@ router.put("/:id/countries/:countryid", (req, res) => {
     if (legitCountry) {
         Countries.updateCountry(countryId, changes)
             .then(country => {
-                res.status(200).json({
-                    data: changes
-                })
+                if (country) {
+                    res.status(200).json({
+                        data: changes
+                    })
+                } else {
+                    res.status(404).json({
+                        errorMessage: "Record does not exist."
+                    })
+                }
             })
             .catch((err) => {
                 res.status(500).json({

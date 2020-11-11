@@ -20,7 +20,9 @@ router.get("/", (req, res) => {
             }
         })
         .catch((err) => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
 })
 
@@ -40,7 +42,9 @@ router.get("/:id", (req, res) => {
             }
         })
         .catch((err) => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
 })
 
@@ -72,8 +76,8 @@ router.put("/:id", (req, res) => {
 
     if (legitCamp) {
         Campaigns.update(id, editedCampaign)
-            .then(campaigns => {
-                if (campaigns) {
+            .then(campaign => {
+                if (campaign) {
                     res.status(200).json(editedCampaign)
                 } else {
                     res.status(404).json({
@@ -99,7 +103,9 @@ router.delete("/:id", (req, res) => {
     Campaigns.remove(id)
         .then(campaigns => {
             if (campaigns) {
-                res.status(200).json({ message: "Successfully deleted." })
+                res.status(200).json({
+                    message: "Successfully deleted."
+                })
             } else {
                 res.status(404).json({
                     errorMessage: "Record does not exist."

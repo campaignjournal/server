@@ -9,7 +9,9 @@ router.get("/", (req, res) => {
     Users.find()
         .then((users) => {
             if (users) {
-                res.status(200).json({ data: users })
+                res.status(200).json({
+                    data: users
+                })
             } else {
                 res.status(404).json({
                     message: "No users have joined, yet!"
@@ -28,7 +30,9 @@ router.get("/:id", (req, res) => {
     Users.findById(id)
         .then((user) => {
             if (user) {
-                res.status(200).json({ data: user })
+                res.status(200).json({
+                    data: user
+                })
             } else {
                 res.status(404).json({
                     message: "Record does not exist."
@@ -76,7 +80,9 @@ router.put("/:id", (req, res) => {
                 if (thenRes) {
                     res.status(200).json(editedUser)
                 } else {
-                    res.status(404).json({ errorMessage: "Record does not exist." })
+                    res.status(404).json({
+                        errorMessage: "Record does not exist."
+                    })
                 }
             })
             .catch((err) => {

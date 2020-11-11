@@ -79,9 +79,15 @@ router.put("/:id/worlds/:worldid/history/:eventid", (req, res) => {
     if (legitEvent) {
         History.updateEvent(eventId, changes)
             .then((history) => {
-                res.status(200).json({
-                    data: history
-                })
+                if (history) {
+                    res.status(200).json({
+                        data: history
+                    })
+                } else {
+                    res.status(404).json({
+                        errorMessage: "Record does not exist."
+                    })
+                }
             })
             .catch((err) => {
                 res.status(500).json({
@@ -111,7 +117,9 @@ router.delete("/:id/worlds/:worldid/history/:eventid", (req, res) => {
             }
         })
         .catch((err) => {
-            res.status(500).json({ errorMessage: "Internal server error." })
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
         })
 })
 

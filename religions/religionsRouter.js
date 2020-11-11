@@ -31,7 +31,9 @@ router.get("/:id/worlds/:worldid/religions/:relid", (req, res) => {
     Religions.findByReligion(relId)
         .then((religion) => {
             if (religion) {
-                res.status(200).json({ data: religion })
+                res.status(200).json({
+                    data: religion
+                })
             } else {
                 res.status(404).json({
                     errorMessage: "Record does not exist"
@@ -77,10 +79,16 @@ router.put("/:id/worlds/:worldid/religions/:relid", (req, res) => {
 
     if (legitRel) {
         Religions.updateReligion(relId, changes)
-            .then((religions) => {
-                res.status(200).json({
-                    data: changes
-                })
+            .then((religion) => {
+                if (religion) {
+                    res.status(200).json({
+                        data: changes
+                    })
+                } else {
+                    res.status(404).json({
+                        errorMessage: "Record does not exist."
+                    })
+                }
             })
             .catch((err) => {
                 res.status(500).json({
