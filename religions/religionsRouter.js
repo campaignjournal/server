@@ -44,4 +44,14 @@ router.put("/:id/worlds/:worldid/religions/:relid", (req, res) => {
         .catch((err) => res.send(err))
 })
 
+router.delete("/:id/worlds/:worldid/religions/:relid", (req, res) => {
+    const relId = req.params.relid
+
+    Religions.destroyReligion(relId)
+    .then(() => {
+        res.status(200).json({ message: "Successfully deleted"})
+    })
+    .catch((err) => res.send(err))
+})
+
 module.exports = router

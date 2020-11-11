@@ -5,7 +5,7 @@ module.exports = {
     findByReligion,
     updateReligion,
     createReligion,
-    // destroyReligion,
+    destroyReligion,
 
 }
 
@@ -34,8 +34,8 @@ function updateReligion(worldId, changes) {
         .update(changes)
 }
 
-function destroyWorld(worldId) {
-    return db('world')
-        .where({ id: worldId })
+function destroyReligion(relId) {
+    return db('Religions')
+        .where({ id: relId })
         .del()
 }
