@@ -3,8 +3,8 @@ const db = require('../database/dbconfig')
 module.exports = {
     findReligionsByWorld,
     findByReligion,
-    // updateReligion,
-    // createReligion,
+    updateReligion,
+    createReligion,
     // destroyReligion,
 
 }
@@ -22,14 +22,14 @@ function findByReligion(relId) {
         .first()
 }
 
-function createWorld(id, newWorld) {
-    return db('world')
-        .insert(newWorld)
-        .where({ campaign_id: id })
+function createReligion(worldId, newReligion) {
+    return db('religions')
+        .insert(newReligion)
+        .where({ world_id: worldId })
 }
 
-function updateWorld(worldId, changes) {
-    return db('world')
+function updateReligion(worldId, changes) {
+    return db('religions')
         .where({ id: worldId })
         .update(changes)
 }
