@@ -35,7 +35,7 @@ function updateReligion(worldId, changes) {
 }
 
 function destroyReligion(relId) {
-    return db('Religions')
+    return db('religions')
         .where({ id: relId })
         .del()
 }
