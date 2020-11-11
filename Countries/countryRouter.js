@@ -2,7 +2,6 @@ const router = require("express").Router()
 
 const Countries = require("./countryModel")
 const countryValidator = require("../middleware/countryValidator")
-const e = require("express")
 
 // COUNTRY SUB-ROUTING
 
