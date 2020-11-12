@@ -108,7 +108,7 @@ router.delete("/:id/worlds/:worldid/religions/:relid", (req, res) => {
     Religions.destroyReligion(relId)
         .then((religion) => {
             if (religion) {
-                res.status(200).json({ message: "Successfully deleted" })
+                res.status(200).json({ message: "Successfully deleted." })
             } else {
                 res.status(404).json({
                     errorMessage: "Record does not exist"
