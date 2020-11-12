@@ -33,20 +33,22 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: "sqlite3",
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      filename: './database/campaignjournal.db3'
     },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      tableName: 'knex_migrations'
-    }
+      directory: "./database/migrations",
+    },
+    seeds: {
+      directory: "./database/seeds",
+    },
   },
+
   testing: {
     client: "sqlite3",
     connection: {
