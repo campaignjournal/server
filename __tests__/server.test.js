@@ -111,29 +111,29 @@ describe("campaign router", () => {
     describe("api/campaigns", () => {
         it("can post a campaign", () => {
             return supertest(server)
-            .post("/api/campaigns")
-            .send({
-                desc: "Follow Edawal as he punches every single monster!", 
-                name: "Journey through Madderay", 
-                user_id: 1
-            })
-            .set({ Authorization: token })
-            .then(res => {
-                expect(res.status).toBe(201)
-            })
+                .post("/api/campaigns")
+                .send({
+                    desc: "Follow Edawal as he punches every single monster!",
+                    name: "Journey through Madderay",
+                    user_id: 1
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(201)
+                })
         })
 
         it("fails to post if data is malformed", () => {
             return supertest(server)
-            .post("/api/campaigns")
-            .send({
-                desc: "Follow Edawal as he punches every single monster!", 
-                user_id: 1
-            })
-            .set({ Authorization: token })
-            .then(res => {
-                expect(res.status).toBe(400)
-            })
+                .post("/api/campaigns")
+                .send({
+                    desc: "Follow Edawal as he punches every single monster!",
+                    user_id: 1
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
         })
 
         it("can get a list of campaigns", () => {
@@ -167,42 +167,49 @@ describe("campaign router", () => {
 
         it("can edit a campaign by id", () => {
             return supertest(server)
-            .put("/api/campaigns/1")
-            .send({
-                desc: "Follow Edawal as he punches every single monster!", 
-                name: "Journey through Madderay again!", 
-                user_id: 1
-            })
-            .set({ Authorization: token })
-            .then(res => {
-                expect(res.status).toBe(200)
-            })
+                .put("/api/campaigns/1")
+                .send({
+                    desc: "Follow Edawal as he punches every single monster!",
+                    name: "Journey through Madderay again!",
+                    user_id: 1
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
         })
 
         it("fails to edit if data is malformed", () => {
             return supertest(server)
-            .put("/api/campaigns/1")
-            .send({
-                desc: "Follow Edawal as he punches every single monster!", 
-                user_id: 1
-            })
-            .set({ Authorization: token })
-            .then(res => {
-                expect(res.status).toBe(400)
-            })
+                .put("/api/campaigns/1")
+                .send({
+                    desc: "Follow Edawal as he punches every single monster!",
+                    user_id: 1
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
         })
 
         it("can delete a campaign as needed", () => {
             return supertest(server)
-            .delete("/api/campaigns/1")
-            .set({ Authorization: token })
-            .then((res => {
-                expect(res.body).toMatchObject({"message": "Successfully deleted."})
-            }))
+                .delete("/api/campaigns/1")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.body).toMatchObject({ "message": "Successfully deleted." })
+                }))
+        })
+
+        it("fails to delete a campaign that doesn't exist", () => {
+            return supertest(server)
+                .delete("/api/campaigns/2")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.status).toBe(404)
+                }))
         })
     })
-
-
 })
 
 describe("characters router", () => {
@@ -212,11 +219,117 @@ describe("characters router", () => {
     })
 
     describe("/:id/characters", () => {
+        it("can post a character", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/characters")
+                .send({
+                    campaign_id: 1,
+                    ancestry: "Changeling",
+                    name: "Nem",
+                    level: 5,
+                    class: "Witch",
+                    description: "A powerful witch"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(201)
+                })
+        })
 
+        it("fails to post if data is malformed", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/characters")
+                .send({
+                    campaign_id: 1,
+                    ancestry: "Changeling",
+                    level: 5,
+                    class: "Witch",
+                    description: "A powerful witch"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can get a list of characters", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/characters")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.body.data).toHaveLength(1)
+                })
+        })
+
+        it("fails to get characters if it lacks access", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/characters")
+                .then(res => {
+                    expect(res.status).toBe(401)
+                })
+        })
     })
 
     describe("/:id/characters/:characterid", () => {
+        it("can get a character by id", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/characters/1")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
 
+        it("can edit a campaign by id", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/characters/1")
+                .send({
+                    campaign_id: 1,
+                    ancestry: "Changeling",
+                    name: "Nem",
+                    level: 6,
+                    class: "Witch",
+                    description: "A powerful witch"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
+
+        it("fails to edit if data is malformed", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/characters/1")
+                .send({
+                    campaign_id: 1,
+                    ancestry: "Changeling",
+                    level: 6,
+                    class: "Witch",
+                    description: "A powerful witch"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can delete a campaign as needed", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/characters/1")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.body).toMatchObject({ "message": "Successfully deleted." })
+                }))
+        })
+
+        it("fails to delete a campaign that doesn't exist", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/characters/2")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.status).toBe(404)
+                }))
+        })
     })
 
 })
@@ -228,7 +341,53 @@ describe("country router", () => {
     })
 
     describe("/:id/countries/", () => {
+        it("can post a country", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/countries")
+                .send({
+                    campaign_id: 1,
+                    ruler: "Emperor Ulgalash",
+                    name: "Montazi",
+                    founded: "Ancient times",
+                    description: "Empire of beast people and philosophers"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(201)
+                })
+        })
 
+        it("fails to post if data is malformed", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/countries")
+                .send({
+                    campaign_id: 1,
+                    ruler: "Emperor Ulgalash",
+                    founded: "Ancient times",
+                    description: "Empire of beast people and philosophers"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can get a list of characters", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/countries")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.body.data).toHaveLength(1)
+                })
+        })
+
+        it("fails to get characters if it lacks access", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/countries")
+                .then(res => {
+                    expect(res.status).toBe(401)
+                })
+        })
     })
 
     describe("/:id/countries/:countryid", () => {
