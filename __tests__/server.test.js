@@ -391,7 +391,63 @@ describe("country router", () => {
     })
 
     describe("/:id/countries/:countryid", () => {
+        it("can get a country by id", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/countries/1")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
 
+        it("can edit a country by id", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/countries/1")
+                .send({
+                    campaign_id: 1,
+                    ruler: "Emperor Ulgalash II",
+                    name: "Montazi",
+                    founded: "Ancient times",
+                    description: "Empire of beast people and philosophers"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
+
+        it("fails to edit if data is malformed", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/countries/1")
+                .send({
+                    campaign_id: 1,
+                    name: "Montazi",
+                    founded: "Ancient times",
+                    description: "Empire of beast people and philosophers"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can delete a country as needed", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/countries/1")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.body).toMatchObject({ "message": "Successfully deleted." })
+                }))
+        })
+
+        it("fails to delete a country that doesn't exist", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/countries/2")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.status).toBe(404)
+                }))
+        })
     })
 })
 
