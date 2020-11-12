@@ -191,6 +191,15 @@ describe("campaign router", () => {
                 expect(res.status).toBe(400)
             })
         })
+
+        it("can delete a campaign as needed", () => {
+            return supertest(server)
+            .delete("/api/campaigns/1")
+            .set({ Authorization: token })
+            .then((res => {
+                expect(res.body).toMatchObject({"message": "Successfully deleted."})
+            }))
+        })
     })
 
 

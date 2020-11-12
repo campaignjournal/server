@@ -75,7 +75,6 @@ router.put("/:id", (req, res) => {
     const legitCamp = campValidator(editedCampaign)
 
     if (legitCamp) {
-        console.log(editedCampaign)
         Campaigns.update(id, editedCampaign)
             .then(campaign => {
                 if (campaign) {
