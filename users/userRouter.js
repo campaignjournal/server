@@ -69,12 +69,12 @@ router.post("/register", (req, res) => {
     const newUser = req.body
     const legitUser = userValidator(newUser)
 
-    const rounds = process.env.HASH_RDS || 6
-    const hash = bcryptjs.hashSync(newUser.password, Number(rounds))
-
-    newUser.password = hash
-
     if (legitUser) {
+        const rounds = process.env.HASH_RDS || 6
+        const hash = bcryptjs.hashSync(newUser.password, Number(rounds))
+    
+        newUser.password = hash
+        
         Users.create(newUser)
             .then(user => {
                 const token = makeJWT(user)

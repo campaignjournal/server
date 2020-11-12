@@ -14,6 +14,38 @@ describe("can ensure jest is functioning", () => {
 
 describe("users router", () => {
 
+    beforeAll(async () => {
+        await db("users").truncate();
+    })
+
+    describe("/api/users/register", () => {
+
+        it("can register a new user", () => {
+            return supertest(server)
+                .post("/api/users/register")
+                .send({
+                    username: "mars_admin",
+                    password: "password",
+                    email: "test@test.com"
+                })
+                .then(res => {
+                    expect(res.status).toBe(201)
+                })
+        })
+
+        it("fails to register a new user if missing required fields", () => {
+            return supertest(server)
+                .post("/api/users/register")
+                .send({
+                    username: "mars_admin",
+                    email: "test@test.com"
+                })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+    })
+
     describe("/api/users/login", () => {
         it("denies login to the wrong credentials", () => {
             return supertest(server)
@@ -55,7 +87,7 @@ describe("users router", () => {
                 .get("/api/users")
                 .set({ Authorization: token })
                 .then(res => {
-                    expect(res.body.data).toHaveLength(2)
+                    expect(res.body.data).toHaveLength(1)
                 })
         })
 
@@ -572,11 +604,113 @@ describe("religions router", () => {
     })
 
     describe("/:id/worlds/:worldid/religions", () => {
+        it("can post a religion", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/worlds/1/religions")
+                .send({
+                    world_id: 1,
+                    name: "Harvestism",
+                    gods: "A metric ton, I honestly can't list them all",
+                    doctrines: "Worship nature, be a cool dude, fight werewolves",
+                    description: "Some kind of druidism"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(201)
+                })
+        })
 
+        it("fails to post if data is malformed", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/worlds/1/religions")
+                .send({
+                    world_id: 1,
+                    gods: "A metric ton, I honestly can't list them all",
+                    doctrines: "Worship nature, be a cool dude, fight werewolves",
+                    description: "Some kind of druidism"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can get a list of religions", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds/1/religions")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.body.data).toHaveLength(1)
+                })
+        })
+
+        it("fails to get religions if it lacks access", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds/1/religions")
+                .then(res => {
+                    expect(res.status).toBe(401)
+                })
+        })
     })
 
     describe("/:id/worlds/:worldid/religions/:relid", () => {
+        it("can get a religion by id", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds/1/religions/1")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
 
+        it("can edit a religion by id", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/worlds/1/religions/1")
+                .send({
+                    world_id: 1,
+                    name: "New Harvestism",
+                    gods: "A metric ton, I honestly can't list them all, but now there are some new ones!",
+                    doctrines: "Worship nature, be a cool dude, fight werewolves",
+                    description: "Some kind of druidism"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
+
+        it("fails to edit if data is malformed", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/worlds/1/religions/1")
+                .send({
+                    name: "New Harvestism",
+                    gods: "A metric ton, I honestly can't list them all, but now there are some new ones!",
+                    doctrines: "Worship nature, be a cool dude, fight werewolves",
+                    description: "Some kind of druidism"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can delete a religion as needed", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/worlds/1/religions/1")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.body).toMatchObject({ "message": "Successfully deleted." })
+                }))
+        })
+
+        it("fails to delete a religion that doesn't exist", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/worlds/1/religions/1")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.status).toBe(404)
+                }))
+        })
     })
 
 })
@@ -584,15 +718,109 @@ describe("religions router", () => {
 describe("worlds router", () => {
 
     beforeAll(async () => {
-        await db("worlds").truncate();
+        await db("world").truncate();
     })
 
     describe("/:id/worlds/", () => {
+        it("can post a world", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/worlds")
+                .send({
+                    campaign_id: 1,
+                    name: "Madderay",
+                    description: "Oceanic world full of monsters and storms. Just an unpleasant place in general tbh."
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(201)
+                })
+        })
 
+        it("fails to post if data is malformed", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/worlds")
+                .send({
+                    campaign_id: 1,
+                    description: "Oceanic world full of monsters and storms. Just an unpleasant place in general tbh."
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can get a list of worlds", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.body.data).toHaveLength(1)
+                })
+        })
+
+        it("fails to get worlds if it lacks access", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds")
+                .then(res => {
+                    expect(res.status).toBe(401)
+                })
+        })
     })
 
     describe("/:id/worlds/:worldid", () => {
+        it("can get a world by id", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds/1")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
 
+        it("can edit a world by id", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/worlds/1")
+                .send({
+                    campaign_id: 1,
+                    name: "Madderay's Moon",
+                    description: "Oceanic world full of monsters and storms. Just an unpleasant place in general tbh."
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
+
+        it("fails to edit if data is malformed", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/worlds/1")
+                .send({
+                    campaign_id: 1,
+                    description: "Oceanic world full of monsters and storms. Just an unpleasant place in general tbh."
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can delete a world as needed", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/worlds/1")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.body).toMatchObject({ "message": "Successfully deleted." })
+                }))
+        })
+
+        it("fails to delete a world that doesn't exist", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/worlds/2")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.status).toBe(404)
+                }))
+        })
     })
 
 })
