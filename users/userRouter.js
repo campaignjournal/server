@@ -70,11 +70,10 @@ router.post("/register", (req, res) => {
     const legitUser = userValidator(newUser)
 
     if (legitUser) {
-        const rounds = process.env.HASH_RDS || 6
+        const rounds = process.env.HASH_ROUNDDS || 6
         const hash = bcryptjs.hashSync(newUser.password, Number(rounds))
     
         newUser.password = hash
-        
         Users.create(newUser)
             .then(user => {
                 const token = makeJWT(user)
@@ -84,7 +83,7 @@ router.post("/register", (req, res) => {
             })
             .catch((err) => {
                 res.status(500).json({
-                    errorMessage: "Internal server error."
+                    errorMessage: "Internal server error.",
                 })
             })
     } else {
