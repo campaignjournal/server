@@ -1,8 +1,9 @@
+# Mac Cruft
+.DS_Store
 
-# Created by https://www.toptal.com/developers/gitignore/api/node
-# Edit at https://www.toptal.com/developers/gitignore?templates=node
+# For students using Yarn, the package-lock.json caused errors when deploying to Heroku
+package-lock.json
 
-### Node ###
 # Logs
 logs
 *.log
@@ -46,8 +47,8 @@ build/Release
 node_modules/
 jspm_packages/
 
-# TypeScript v1 declaration files
-typings/
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -76,7 +77,6 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
-.env*.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -113,6 +113,9 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# End of https://www.toptal.com/developers/gitignore/api/node
-node_modules
-package-lock.json
+# yarn v2
+
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
