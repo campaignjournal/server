@@ -8,13 +8,13 @@ const server = express()
 
 //routers
 
-const usersRouter = require('../users/userRouter')
-const campaignsRouter = require('../campaigns/campaignRouter')
-const countryRouter = require('../countries/countryRouter')
-const worldRouter = require('../worlds/worldRouter')
-const characterRouter = require('../characters/characterRouter')
-const religionsRouter = require('../religions/religionsRouter')
-const historyRouter = require('../history/historyRouter')
+const usersRouter = require("../users/userRouter")
+const campaignsRouter = require("../campaigns/campaignRouter")
+const countryRouter = require("../countries/countryRouter")
+const worldRouter = require("../Worlds/worldRouter")
+const characterRouter = require("../characters/characterRouter")
+const religionsRouter = require("../religions/religionsRouter")
+const historyRouter = require("../history/historyRouter")
 
 //middleware
 const restricted = require("../middleware/restricted")
