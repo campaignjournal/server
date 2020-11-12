@@ -108,7 +108,7 @@ router.delete("/:id/worlds/:worldid/history/:eventid", (req, res) => {
         .then((history) => {
             if (history) {
                 res.status(200).json({
-                    message: "Successfully deleted"
+                    message: "Successfully deleted."
                 })
             } else {
                 res.status(404).json({

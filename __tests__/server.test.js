@@ -372,7 +372,7 @@ describe("country router", () => {
                 })
         })
 
-        it("can get a list of characters", () => {
+        it("can get a list of countries", () => {
             return supertest(server)
                 .get("/api/campaigns/1/countries")
                 .set({ Authorization: token })
@@ -381,7 +381,7 @@ describe("country router", () => {
                 })
         })
 
-        it("fails to get characters if it lacks access", () => {
+        it("fails to get countries if it lacks access", () => {
             return supertest(server)
                 .get("/api/campaigns/1/countries")
                 .then(res => {
@@ -458,11 +458,109 @@ describe("history router", () => {
     })
 
     describe("/:id/worlds/:worldid/history", () => {
+        it("can post a historical event", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/worlds/1/history")
+                .send({
+                    world_id: 1,
+                    name: "Fall of Sabune",
+                    date: "150 years ago",
+                    description: "Free Sabune got wrecked by some beast people"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(201)
+                })
+        })
 
+        it("fails to post if data is malformed", () => {
+            return supertest(server)
+                .post("/api/campaigns/1/worlds/1/history")
+                .send({
+                    world_id: 1,
+                    name: "Fall of Sabune",
+                    description: "Free Sabune got wrecked by some beast people"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can get a list of historical events", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds/1/history")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.body.data).toHaveLength(1)
+                })
+        })
+
+        it("fails to get historical events if it lacks access", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds/1/history")
+                .then(res => {
+                    expect(res.status).toBe(401)
+                })
+        })
     })
 
     describe("/:id/worlds/:worldid/history/:eventid", () => {
+        it("can get a historical event by id", () => {
+            return supertest(server)
+                .get("/api/campaigns/1/worlds/1/history/1")
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
 
+        it("can edit a historical event by id", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/worlds/1/history/1")
+                .send({
+                    world_id: 1,
+                    name: "Fall of Sabune",
+                    date: "180 years ago",
+                    description: "Free Sabune got wrecked by some beast people"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(200)
+                })
+        })
+
+        it("fails to edit if data is malformed", () => {
+            return supertest(server)
+                .put("/api/campaigns/1/worlds/1/history/1")
+                .send({
+                    world_id: 1,
+                    date: "180 years ago",
+                    description: "Free Sabune got wrecked by some beast people"
+                })
+                .set({ Authorization: token })
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+
+        it("can delete a historical event as needed", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/worlds/1/history/1")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.body).toMatchObject({ "message": "Successfully deleted." })
+                }))
+        })
+
+        it("fails to delete a historical event that doesn't exist", () => {
+            return supertest(server)
+                .delete("/api/campaigns/1/worlds/1/history/2")
+                .set({ Authorization: token })
+                .then((res => {
+                    expect(res.status).toBe(404)
+                }))
+        })
     })
 
 })
