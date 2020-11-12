@@ -32,7 +32,7 @@ function remove(id) {
 }
 
 function update(id, changes) {
-    return db('campaign')
+    return db('campaigns')
         .where('id', id)
         .update(changes)
 }

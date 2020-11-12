@@ -72,9 +72,10 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
     const editedCampaign = req.body
     const id = req.params.id
-    const legitCamp = campValidator(newCampaign)
+    const legitCamp = campValidator(editedCampaign)
 
     if (legitCamp) {
+        console.log(editedCampaign)
         Campaigns.update(id, editedCampaign)
             .then(campaign => {
                 if (campaign) {
