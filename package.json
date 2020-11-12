@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "campaign-journal-server",
   "version": "1.0.0",
   "description": "Powers the most fantastical app on the web.",
   "main": "index.js",
