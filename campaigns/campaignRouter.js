@@ -48,6 +48,28 @@ router.get("/:id", (req, res) => {
         })
 })
 
+router.get("/user-campaigns/:userid", (req, res) => {
+    const id = req.params.userid
+
+    Campaigns.findByUserId(id)
+        .then((campaigns) => {
+            if (campaigns.length !== 0) {
+                res.status(200).json({
+                    campaigns
+                })
+            } else {
+                res.status(404).json({
+                    errorMessage: "Record does not exist."
+                })
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({
+                errorMessage: "Internal server error."
+            })
+        })
+})
+
 router.post("/", (req, res) => {
     const newCampaign = req.body
     const legitCamp = campValidator(newCampaign)
