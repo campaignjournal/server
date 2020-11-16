@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
         .then((campaigns) => {
             if (campaigns) {
                 res.status(200).json({
-                    data: campaigns
+                    campaigns
                 })
             } else {
                 res.status(404).json({
@@ -33,7 +33,7 @@ router.get("/:id", (req, res) => {
         .then((campaigns) => {
             if (campaigns) {
                 res.status(200).json({
-                    data: campaigns
+                    campaigns
                 })
             } else {
                 res.status(404).json({

@@ -10,7 +10,7 @@ router.get("/:id/worlds/:worldid/religions", (req, res) => {
         .then((religions) => {
             if (religions) {
                 res.status(200).json({
-                    data: religions
+                    religions
                 })
             } else {
                 res.status(404).json({
@@ -32,7 +32,7 @@ router.get("/:id/worlds/:worldid/religions/:relid", (req, res) => {
         .then((religion) => {
             if (religion) {
                 res.status(200).json({
-                    data: religion
+                    religion
                 })
             } else {
                 res.status(404).json({
@@ -56,7 +56,7 @@ router.post("/:id/worlds/:worldid/religions", (req, res) => {
         Religions.createReligion(worldId, newReligion)
             .then((religions) => {
                 res.status(201).json({
-                    data: newReligion
+                    newReligion
                 })
             })
             .catch((err) => {
@@ -82,7 +82,7 @@ router.put("/:id/worlds/:worldid/religions/:relid", (req, res) => {
             .then((religion) => {
                 if (religion) {
                     res.status(200).json({
-                        data: changes
+                        changes
                     })
                 } else {
                     res.status(404).json({

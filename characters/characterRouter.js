@@ -12,7 +12,7 @@ router.get("/:id/characters", (req, res) => {
         .then((characters) => {
             if (characters) {
                 res.status(200).json({
-                    data: characters
+                    characters
                 })
             } else {
                 res.status(404).json({
@@ -34,7 +34,7 @@ router.get("/:id/characters/:characterid", (req, res) => {
         .then((character) => {
             if (character) {
                 res.status(200).json({
-                    data: character
+                    character
                 })
             } else {
                 res.status(404).json({
@@ -58,7 +58,7 @@ router.post("/:id/characters", (req, res) => {
         Characters.createCharacter(id, newCharacter)
             .then(character => {
                 res.status(201).json({
-                    data: newCharacter
+                    newCharacter
                 })
             })
             .catch((err) => {
@@ -83,7 +83,7 @@ router.put("/:id/characters/:characterid", (req, res) => {
             .then(character => {
                 if (character) {
                     res.status(200).json({
-                        data: changes
+                        changes
                     })
                 } else {
                     res.status(404).json({

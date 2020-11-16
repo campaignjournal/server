@@ -11,7 +11,7 @@ router.get("/:id/worlds", (req, res) => {
         .then((worlds) => {
             if (worlds) {
                 res.status(200).json({
-                    data: worlds
+                    worlds
                 })
             } else {
                 res.status(404).json({
@@ -33,7 +33,7 @@ router.get("/:id/worlds/:worldid", (req, res) => {
         .then((world) => {
             if (world) {
                 res.status(200).json({
-                    data: world
+                    world
                 })
             } else {
                 res.status(404).json({
@@ -56,7 +56,7 @@ router.post("/:id/worlds/", (req, res) => {
     if (legitWorld) {
         Worlds.createWorld(id, newWorld)
             .then(world => {
-                res.status(201).json({ data: world })
+                res.status(201).json({ world })
             })
             .catch((err) => {
                 res.status(500).json({
@@ -80,7 +80,7 @@ router.put("/:id/worlds/:worldid", (req, res) => {
             .then(world => {
                 if (world) {
                     res.status(200).json({
-                        data: world
+                        world
                     })
                 } else {
                     res.status(404).json({

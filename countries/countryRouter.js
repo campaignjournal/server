@@ -12,7 +12,7 @@ router.get("/:id/countries", (req, res) => {
         .then((countries) => {
             if (countries) {
                 res.status(200).json({
-                    data: countries
+                    countries
                 })
             } else {
                 res.status(404).json({
@@ -34,7 +34,7 @@ router.get("/:id/countries/:countryid", (req, res) => {
         .then((country) => {
             if (country) {
                 res.status(200).json({
-                    data: country
+                    country
                 })
             } else {
                 res.status(404).json({
@@ -58,7 +58,7 @@ router.post("/:id/countries/", (req, res) => {
         Countries.createCountry(id, newCountry)
             .then(character => {
                 res.status(201).json({
-                    data: newCountry
+                    newCountry
                 })
             })
             .catch((err) => {
@@ -83,7 +83,7 @@ router.put("/:id/countries/:countryid", (req, res) => {
             .then(country => {
                 if (country) {
                     res.status(200).json({
-                        data: changes
+                        changes
                     })
                 } else {
                     res.status(404).json({

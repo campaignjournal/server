@@ -10,7 +10,7 @@ router.get("/:id/worlds/:worldid/history", (req, res) => {
         .then((history) => {
             if (history) {
                 res.status(200).json({
-                    data: history
+                    history
                 })
             } else {
                 res.status(404).json({
@@ -32,7 +32,7 @@ router.get("/:id/worlds/:worldid/history/:eventid", (req, res) => {
         .then((history) => {
             if (history) {
                 res.status(200).json({
-                    data: history
+                    history
                 })
             } else {
                 res.status(404).json({
@@ -56,7 +56,7 @@ router.post("/:id/worlds/:worldid/history", (req, res) => {
         History.createEvent(worldId, newEvent)
             .then((history) => {
                 res.status(201).json({
-                    data: history
+                    history
                 })
             })
             .catch((err) => {
@@ -81,7 +81,7 @@ router.put("/:id/worlds/:worldid/history/:eventid", (req, res) => {
             .then((history) => {
                 if (history) {
                     res.status(200).json({
-                        data: history
+                        history
                     })
                 } else {
                     res.status(404).json({
