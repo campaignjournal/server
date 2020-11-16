@@ -3,6 +3,7 @@ const db = require('../database/dbconfig')
 module.exports = {
     findCampaigns,
     findById,
+    findByUserId,
     create,
     remove,
     update,
@@ -18,6 +19,11 @@ function findById(id) {
     return db("campaigns")
         .where({ id })
         .first()
+}
+
+function findByUserId(id) {
+    return db("campaigns")
+    .where({ user_id: id })
 }
 
 function create(campaign) {
