@@ -21,7 +21,7 @@ exports.up = function (knex) {
                 .unique()
                 .index()
 
-            tbl.string("desc", 256)
+            tbl.string("description", 256)
         })
         .createTable("countries", (tbl) => {
             tbl.increments()
@@ -39,7 +39,7 @@ exports.up = function (knex) {
             tbl.string("description", 256).notNullable()
 
         })
-
+        
         .createTable("characters", (tbl) => {
             tbl.increments()
             tbl.integer("campaign_id")
