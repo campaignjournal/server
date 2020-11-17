@@ -21,7 +21,7 @@ exports.up = function (knex) {
                 .unique()
                 .index()
 
-            tbl.string("desc", 256)
+            tbl.string("description", 256)
         })
         .createTable("countries", (tbl) => {
             tbl.increments()

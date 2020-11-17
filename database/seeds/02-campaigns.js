@@ -3,7 +3,7 @@ exports.seed = function (knex) {
       {
           user_id: 1,
           name:"Journey through Madderay",
-          desc:"Follow Edawal as he punches every single monster!"
+          description:"Follow Edawal as he punches every single monster!"
       },
     ])
   }

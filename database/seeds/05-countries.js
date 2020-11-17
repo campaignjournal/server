@@ -5,14 +5,14 @@ exports.seed = function (knex) {
           name:"Montazi",
           ruler: "Emperor Ulgalash",
           description: "Empire of beast people and philosophers",
-          Founded: "Ancient times",
+          founded: "Ancient times",
       },
       {
         campaign_id: 1,
         name:"Nefay",
         ruler: "Parliament of Earls",
         description: "Land of the wild elves",
-        Founded: "Ancient times",
+        founded: "Ancient times",
       },
     ])
   }
