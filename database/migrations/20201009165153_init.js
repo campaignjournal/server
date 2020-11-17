@@ -39,7 +39,7 @@ exports.up = function (knex) {
             tbl.string("description", 256).notNullable()
 
         })
-
+        
         .createTable("characters", (tbl) => {
             tbl.increments()
             tbl.integer("campaign_id")
