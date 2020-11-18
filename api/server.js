@@ -22,6 +22,7 @@ const restricted = require("../middleware/restricted")
 server.use(helmet())
 server.use(express.json())
 server.use(cors())
+server.options('*', cors())
 
 server.get("/", (req, res) => {
     res.send({
