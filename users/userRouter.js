@@ -78,7 +78,7 @@ router.post("/register", (req, res) => {
             .then(user => {
                 const token = makeJWT(user)
                 res.status(201).json({
-                    data: user, token
+                    data: newUser, token
                 })
             })
             .catch((err) => {
