@@ -72,7 +72,7 @@ router.post("/register", (req, res) => {
     if (legitUser) {
         const rounds = process.env.HASH_ROUNDDS || 6
         const hash = bcryptjs.hashSync(newUser.password, Number(rounds))
-    
+
         newUser.password = hash
         Users.create(newUser)
             .then(user => {
@@ -106,7 +106,7 @@ router.post("/login", (req, res) => {
                     })
                 } else {
                     res.status(401).json({
-                        message: "Invalid credentials", 
+                        message: "Invalid credentials",
                     })
                 }
             })
