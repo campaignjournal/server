@@ -5,7 +5,7 @@ exports.seed = function (knex) {
           name:"Edawal",
           level: 1,
           class: "Monk",
-          Ancestry: "Elf",
+          ancestry: "Elf",
           description:"A fearsome monk",
       },
       {
@@ -13,7 +13,7 @@ exports.seed = function (knex) {
         name:"Nem",
         level: 5,
         class: "Witch",
-        Ancestry: "Changeling",
+        ancestry: "Changeling",
         description:"A powerful witch",
       },
     ])

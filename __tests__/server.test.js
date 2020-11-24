@@ -145,7 +145,7 @@ describe("campaign router", () => {
             return supertest(server)
                 .post("/api/campaigns")
                 .send({
-                    desc: "Follow Edawal as he punches every single monster!",
+                    description: "Follow Edawal as he punches every single monster!",
                     name: "Journey through Madderay",
                     user_id: 1
                 })
@@ -159,7 +159,7 @@ describe("campaign router", () => {
             return supertest(server)
                 .post("/api/campaigns")
                 .send({
-                    desc: "Follow Edawal as he punches every single monster!",
+                    description: "Follow Edawal as he punches every single monster!",
                     user_id: 1
                 })
                 .set({ Authorization: token })
@@ -173,7 +173,7 @@ describe("campaign router", () => {
                 .get("/api/campaigns")
                 .set({ Authorization: token })
                 .then(res => {
-                    expect(res.body.data).toHaveLength(1)
+                    expect(res.body.campaigns).toHaveLength(1)
                 })
         })
 
@@ -201,7 +201,7 @@ describe("campaign router", () => {
             return supertest(server)
                 .put("/api/campaigns/1")
                 .send({
-                    desc: "Follow Edawal as he punches every single monster!",
+                    description: "Follow Edawal as he punches every single monster!",
                     name: "Journey through Madderay again!",
                     user_id: 1
                 })
@@ -215,7 +215,7 @@ describe("campaign router", () => {
             return supertest(server)
                 .put("/api/campaigns/1")
                 .send({
-                    desc: "Follow Edawal as he punches every single monster!",
+                    description: "Follow Edawal as he punches every single monster!",
                     user_id: 1
                 })
                 .set({ Authorization: token })
@@ -289,7 +289,7 @@ describe("characters router", () => {
                 .get("/api/campaigns/1/characters")
                 .set({ Authorization: token })
                 .then(res => {
-                    expect(res.body.data).toHaveLength(1)
+                    expect(res.body.characters).toHaveLength(1)
                 })
         })
 
@@ -409,7 +409,7 @@ describe("country router", () => {
                 .get("/api/campaigns/1/countries")
                 .set({ Authorization: token })
                 .then(res => {
-                    expect(res.body.data).toHaveLength(1)
+                    expect(res.body.countries).toHaveLength(1)
                 })
         })
 
@@ -524,7 +524,7 @@ describe("history router", () => {
                 .get("/api/campaigns/1/worlds/1/history")
                 .set({ Authorization: token })
                 .then(res => {
-                    expect(res.body.data).toHaveLength(1)
+                    expect(res.body.history).toHaveLength(1)
                 })
         })
 
@@ -640,7 +640,7 @@ describe("religions router", () => {
                 .get("/api/campaigns/1/worlds/1/religions")
                 .set({ Authorization: token })
                 .then(res => {
-                    expect(res.body.data).toHaveLength(1)
+                    expect(res.body.religions).toHaveLength(1)
                 })
         })
 
@@ -754,7 +754,7 @@ describe("worlds router", () => {
                 .get("/api/campaigns/1/worlds")
                 .set({ Authorization: token })
                 .then(res => {
-                    expect(res.body.data).toHaveLength(1)
+                    expect(res.body.worlds).toHaveLength(1)
                 })
         })
 

@@ -15,7 +15,7 @@ module.exports = {
       directory: "./database/seeds",
     },
   },
-  
+
   production: {
     client: "sqlite3",
     useNullAsDefault: true,
@@ -35,14 +35,13 @@ module.exports = {
   },
 
   testing: {
-    client: "sqlite3",
-    connection: {
-      filename: "./database/test.db3",
-    },
+    client: 'sqlite3',
     useNullAsDefault: true,
+    connection: {
+      filename: './database/campaignjournal.db3'
+    },
     migrations: {
       directory: "./database/migrations",
-      tableName: "dbmigrations",
     },
     seeds: {
       directory: "./database/seeds",
