@@ -4,8 +4,8 @@ const knex = require("knex")
 
 const knexfile = require("../knexfile.js")
 
-// const environment = "production"
+const environment = "production"
 
-const environment = "testing"
+// const environment = "testing"
 
 module.exports = knex(knexfile[environment])
