@@ -411,6 +411,71 @@
                 </code>
             </div>
         </div>
+
+        <h3>Religions</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions <em>(POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "Dodekatheism", //required</p>
+            <p>"gods": "Zeus, Aphrodite, Pan, etc.", //required</p>
+            <p>"doctrines": "be excellent", //required</p>
+            <p>"description": "the one true faith", //required</p>
+            <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions/:relid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions/:relid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "Dodekatheism", //required</p>
+                <p>"gods": "Zeus, Aphrodite, Pan, etc.", //required</p>
+                <p>"doctrines": "be excellent", //required</p>
+                <p>"description": "the one true faith", //required</p>
+                <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions/:relid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
 </body>
 
 </html>
