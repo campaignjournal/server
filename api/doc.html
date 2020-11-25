@@ -288,7 +288,7 @@
             </div>
         </div>
 
-        <h3>worlds</h3>
+        <h3>Worlds</h3>
         <div style="border: 1px solid grey; margin: 1% 0">
             <p>/api/campaigns/:id/worlds (POST)</em></p>
             <div style="background-color: lightgray; padding: 2%">
@@ -339,6 +339,69 @@
         </div>
         <div style="border: 1px solid grey; margin: 1% 0">
             <p>/api/campaigns/:id/worlds/:worldid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>History</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history <em>(POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "siege of Athens", //required</p>
+            <p>"date": "ancient times", //required</p>
+            <p>"description": "definitely not a good time", //required</p>
+            <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history/:eventid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history/:eventid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "siege of Athens", //required</p>
+                <p>"date": "ancient times", //required</p>
+                <p>"description": "definitely not a good time", //required</p>
+                <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history/:eventid <em>(DELETE)</em></p>
             <div style="background-color: lightgray; padding: 2%">
                 <code>
                     <p>Request header:</p>
