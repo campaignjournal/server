@@ -93,7 +93,7 @@
             <p>{</p>
             <p>"name": "journey to the west", //required</p>
             <p>"description": "a very good time", //required</p>
-            <p>"user_id": "1", //required</p>
+            <p>"user_id": 1, //required</p>
             <p>}</p>
           </code>
             </div>
@@ -139,13 +139,80 @@
             <p>{</p>
                 <p>"name": "journey to the west", //required</p>
                 <p>"description": "a very good time", //required</p>
-                <p>"user_id": "1", //required</p>
+                <p>"user_id": 1, //required</p>
             <p>}</p>
           </code>
             </div>
         </div>
         <div style="border: 1px solid grey; margin: 1% 0">
             <p>/api/campaigns/:id <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>Characters</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters (POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "Grugnak", //required</p>
+            <p>"description": "tall and green", //required</p>
+            <p>"ancestry": "orc", //required</p>
+            <p>"class": "wizard", //required</p>
+            <p>"level": 1, //required</p>
+            <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters/:characterid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters/:characterid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "Grugnak", //required</p>
+            <p>"description": "tall and green", //required</p>
+            <p>"ancestry": "orc", //required</p>
+            <p>"class": "wizard", //required</p>
+            <p>"level": 1, //required</p>
+            <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters/:characterid <em>(DELETE)</em></p>
             <div style="background-color: lightgray; padding: 2%">
                 <code>
                     <p>Request header:</p>
