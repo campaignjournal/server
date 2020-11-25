@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wunderlist API</title>
+</head>
+
+<body>
+    <h1 style="text-align: center">Campaign Journal Web Server</h1>
+    <section>
+        <h2>End Points</h2>
+        <h3>Users</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/users/register <em>(POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"username": "one111", //required</p>
+            <p>"password": "one111", //required</p>
+            <p>"email": "abc@gmail.com", //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/users/login <em>(POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                <p>Request body:</p>
+            <p>{</p>
+            <p>"username": "one111", //required</p>
+            <p>"password": "one111", //required</p>
+            <p>}</p> 
+        </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/users <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/users/:id <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/users/:id <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"username": "one111", //required</p>
+            <p>"password": "one111", //required</p>
+            <p>"email": "abc@gmail.com", //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/users/:id <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>Campaigns</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns <em>(POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "journey to the west", //required</p>
+            <p>"description": "a very good time", //required</p>
+            <p>"user_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:userid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "journey to the west", //required</p>
+                <p>"description": "a very good time", //required</p>
+                <p>"user_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>Characters</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters (POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "Grugnak", //required</p>
+            <p>"description": "tall and green", //required</p>
+            <p>"ancestry": "orc", //required</p>
+            <p>"class": "wizard", //required</p>
+            <p>"level": 1, //required</p>
+            <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters/:characterid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters/:characterid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "Grugnak", //required</p>
+            <p>"description": "tall and green", //required</p>
+            <p>"ancestry": "orc", //required</p>
+            <p>"class": "wizard", //required</p>
+            <p>"level": 1, //required</p>
+            <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/characters/:characterid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>Countries</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries (POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "United States", //required</p>
+            <p>"description": "land of the free, home of the brave, inventors of the super soaker", //required</p>
+            <p>"founded": "1776", //required</p>
+            <p>"ruler": "Abraham Lincoln's Holy Ghost", //required</p>
+            <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries/:countryid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries/:countryid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "United States", //required</p>
+                <p>"description": "land of the free, home of the brave, inventors of the super soaker", //required</p>
+                <p>"founded": "1776", //required</p>
+                <p>"ruler": "Abraham Lincoln's Holy Ghost", //required</p>
+                <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries/:countryid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>Worlds</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds (POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "Earf", //required</p>
+            <p>"description": "a beautiful blue marble for sure", //required</p>
+            <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "Earf", //required</p>
+                <p>"description": "a beautiful blue marble for sure", //required</p>
+                <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>History</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history <em>(POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "siege of Athens", //required</p>
+            <p>"date": "ancient times", //required</p>
+            <p>"description": "definitely not a good time", //required</p>
+            <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history/:eventid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history/:eventid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "siege of Athens", //required</p>
+                <p>"date": "ancient times", //required</p>
+                <p>"description": "definitely not a good time", //required</p>
+                <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/history/:eventid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+
+        <h3>Religions</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions <em>(POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "Dodekatheism", //required</p>
+            <p>"gods": "Zeus, Aphrodite, Pan, etc.", //required</p>
+            <p>"doctrines": "be excellent", //required</p>
+            <p>"description": "the one true faith", //required</p>
+            <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions/:relid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions/:relid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "Dodekatheism", //required</p>
+                <p>"gods": "Zeus, Aphrodite, Pan, etc.", //required</p>
+                <p>"doctrines": "be excellent", //required</p>
+                <p>"description": "the one true faith", //required</p>
+                <p>"world_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/worlds/:worldid/religions/:relid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+</body>
+
+</html>
