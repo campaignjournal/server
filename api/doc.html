@@ -222,6 +222,71 @@
                 </code>
             </div>
         </div>
+
+        <h3>Countries</h3>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries (POST)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+            <p>"name": "United States", //required</p>
+            <p>"description": "land of the free, home of the brave, inventors of the super soaker", //required</p>
+            <p>"founded": "1776", //required</p>
+            <p>"ruler": "Abraham Lincoln's Holy Ghost", //required</p>
+            <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries/:countryid <em>(GET)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries/:countryid <em>(PUT)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+              <p>Request body:</p>
+            <p>{</p>
+                <p>"name": "United States", //required</p>
+                <p>"description": "land of the free, home of the brave, inventors of the super soaker", //required</p>
+                <p>"founded": "1776", //required</p>
+                <p>"ruler": "Abraham Lincoln's Holy Ghost", //required</p>
+                <p>"campaign_id": 1, //required</p>
+            <p>}</p>
+          </code>
+            </div>
+        </div>
+        <div style="border: 1px solid grey; margin: 1% 0">
+            <p>/api/campaigns/:id/countries/:countryid <em>(DELETE)</em></p>
+            <div style="background-color: lightgray; padding: 2%">
+                <code>
+                    <p>Request header:</p>
+                  <p>{</p>
+                  <p>"Authorization": token, //required</p>
+                  <p>}</p>
+                </code>
+            </div>
+        </div>
 </body>
 
 </html>
