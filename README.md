@@ -3,7 +3,7 @@ Powers the most fantastical app on the web.
 
 ## basic structure 
 
-![FlowChart](/asset/campaignjournal.png)
+![FlowChart](/assets/campaignjournal.png)
 
 ## deployment
 
