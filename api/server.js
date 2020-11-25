@@ -25,9 +25,7 @@ server.use(cors())
 server.options('*', cors())
 
 server.get("/", (req, res) => {
-    res.send({
-        message: "up, check it out"
-    })
+    res.sendFile("doc.html", { root: __dirname })
 })
 
 server.use("/api/users", usersRouter)
