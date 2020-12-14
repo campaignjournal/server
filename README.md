@@ -17,6 +17,8 @@ node | express | knex | sqlite3 | bycryptjs | jsonwebtoken
 
 ### USERS
 
+Users must be registered and logged in to get access to any functionality besides registration and login, and any access to campaigns or any associated subrouter.
+
 /api/users/register (POST)
 
 * Request body:
